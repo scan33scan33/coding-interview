@@ -1,0 +1,4 @@
+semantic-costmap-bfs/semantic_costmap_bfs
+*.o
+*.dSYM/
+.DS_Store
