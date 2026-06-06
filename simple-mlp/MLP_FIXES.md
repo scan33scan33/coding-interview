@@ -1,5 +1,15 @@
 # MLP Implementation Fixes
 
+## Problem Description
+This is a from-scratch implementation of a simple Multilayer Perceptron (MLP) neural network with:
+- Custom linear layers with weight and bias parameters
+- ReLU activation functions between hidden layers
+- MSE loss for regression
+- Backpropagation algorithm for gradient computation
+- Stochastic gradient descent for weight updates
+
+The implementation trains on a simple 4-sample binary classification task, learning to separate data points using learned non-linear decision boundaries.
+
 ## Summary
 Fixed critical backpropagation bug in ReLU gradient computation and improved overall implementation quality.
 
