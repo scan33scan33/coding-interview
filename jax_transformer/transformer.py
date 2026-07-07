@@ -10,7 +10,6 @@ import numpy as np
 import time
 from functools import partial
 
-INPUT_DIM = 768
 NUM_CLASSES = 10
 D_MODEL = 112
 NUM_HEADS = 4

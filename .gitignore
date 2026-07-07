@@ -1,4 +1,14 @@
-semantic-costmap-bfs/semantic_costmap_bfs
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# C/C++ build artifacts
+a.out
+*.out
 *.o
 *.dSYM/
+semantic-costmap-bfs/semantic_costmap_bfs
+
+# macOS
 .DS_Store

@@ -24,13 +24,24 @@ grad = self.hidden_layers[i].backward(grad) * self.hidden_activations[i]
 
 This caused incorrect gradient flow because ReLU's derivative is a binary mask (1 where x > 0, 0 otherwise), not the activation values themselves.
 
-### The Fix
+### The Fix (part 1 — derivative shape)
+Use the binary ReLU mask, not the activation values:
 ```python
-# CORRECT - masks gradients where activations were zero
-grad = self.hidden_layers[i].backward(grad) * (self.hidden_activations[i] > 0)
+# ... * (self.hidden_activations[i] > 0)   # mask, not values
 ```
 
-When backpropagating through ReLU, gradients must be masked by the binary indicator of which neurons were active during the forward pass.
+### The Fix (part 2 — mask ordering)
+The first fix still masked the wrong tensor. `hidden_layers[i].backward(grad)`
+returns `dL/da_{i-1}` (the gradient for the *previous* layer), and it computes
+`grad_w` from the *unmasked* incoming gradient. The ReLU mask belongs to this
+layer's pre-activation `z_i`, so it must be applied *before* the linear backward:
+```python
+# CORRECT
+grad = grad * (self.hidden_activations[i] > 0)   # dL/dz_i
+grad = self.hidden_layers[i].backward(grad)       # dL/da_{i-1}, grad_w now masked
+```
+Verified with a finite-difference gradient check: the old order gives
+`max|analytic - numeric| ≈ 0.85` on `hidden[0].w`; the corrected order gives `0.0`.
 
 ## Additional Improvements
 
@@ -51,9 +62,9 @@ Biases should start at zero; random initialization can cause unnecessary varianc
 - Made `hidden_dim` a configurable parameter instead for better flexibility
 
 ## Training Results
-With these fixes, the network converges smoothly on a 4-sample XOR-like classification task:
-- **Initial loss**: ~2.17
-- **Final loss (100 iterations)**: ~0.86
-- **Learning rate**: 0.001
-
-The monotonic decrease in loss confirms that backpropagation is now working correctly.
+With correct gradients the loss decreases monotonically on the 4-sample
+XOR-like task (e.g. ~2.36 → ~1.20 over 100 iterations at lr=0.001; exact
+values depend on the random seed). Correctness is established by the
+finite-difference gradient check above, not by the loss value on a toy set —
+the earlier reported "~0.86" came from the buggy gradient and is not a valid
+target.

@@ -52,7 +52,13 @@ class MLP:
     def backward(self, grad):
         grad = self.output_layer.backward(grad)
         for i in range(len(self.hidden_layers) - 1, -1, -1):
-            grad = self.hidden_layers[i].backward(grad) * (self.hidden_activations[i] > 0)
+            # Mask by ReLU'(z_i) BEFORE the linear backward: the mask belongs to
+            # this layer's pre-activation, and the linear backward must see the
+            # masked gradient so grad_w picks up ReLU'. Applying the mask after
+            # backward() masks the wrong tensor (dL/da_{i-1}) and leaves grad_w
+            # unmasked. Verified against finite differences.
+            grad = grad * (self.hidden_activations[i] > 0)
+            grad = self.hidden_layers[i].backward(grad)
 
 
     def update_grad(self):
