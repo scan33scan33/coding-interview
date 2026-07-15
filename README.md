@@ -61,9 +61,24 @@ GenAI) on 1point3acres, Blind, Reddit, and MLE interview writeups.
 | [`a-star-pathfinding`](a-star-pathfinding/) | A* on a grid (C++) |
 | [`semantic-costmap-bfs`](semantic-costmap-bfs/) | BFS over a semantic costmap (C++) |
 
+## Frameworks
+
+Every tensor/ML problem ships **both PyTorch and JAX** implementations
+side by side (`*_torch.py` / `*_jax.py` next to the original), with tests
+for each — OpenAI-style loops lean PyTorch, DeepMind/Anthropic-style loops
+lean JAX, and porting between the two is itself good interview practice
+(explicit PRNG keys, pytrees + pure functions instead of Modules,
+`stop_gradient` instead of `no_grad`, dense dispatch instead of dynamic
+shapes).
+
+Deliberately framework-free (building without a framework *is* the
+exercise, or no tensors are involved): `micrograd-autodiff`, `simple-mlp`
+(manual backprop), `bpe-tokenizer`, `count-min-sketch`,
+`inmemory-database`, `data-preprocessing` (pandas), and the C++ problems.
+
 ## Running tests
 
 ```bash
-pip install torch numpy pytest
+pip install torch jax numpy pytest
 cd <problem-dir> && python -m pytest -v
 ```
