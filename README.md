@@ -27,6 +27,7 @@ GenAI) on 1point3acres, Blind, Reddit, and MLE interview writeups.
 | [`dpo-loss`](dpo-loss/) | Direct Preference Optimization (RLHF without RL) |
 | [`grpo-ppo-loss`](grpo-ppo-loss/) | GRPO/PPO clipped loss, k3 KL estimator |
 | [`rl-post-training`](rl-post-training/) | v2: full SFT → GRPO/PPO pipeline on a real model with held-out eval |
+| [`atari-speedrun`](atari-speedrun/) | v3: DQN/PPO/GRPO speedrun a mini-Atari game, judged by completion time |
 | [`contrastive-retrieval`](contrastive-retrieval/) | Bi-encoder + InfoNCE, false-negative masking |
 
 ## Inference & decoding
@@ -76,6 +77,10 @@ Deliberately framework-free (building without a framework *is* the
 exercise, or no tensors are involved): `micrograd-autodiff`, `simple-mlp`
 (manual backprop), `bpe-tokenizer`, `count-min-sketch`,
 `inmemory-database`, `data-preprocessing` (pandas), and the C++ problems.
+
+PyTorch-only by design (the training loop is the deliverable, and a JAX
+port is itself the suggested follow-up): `rl-post-training`,
+`atari-speedrun`.
 
 ## Running tests
 
