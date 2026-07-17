@@ -99,6 +99,11 @@ python compare_algos.py      # DQN vs PPO vs GRPO table,      ~2-3 min
 python -m pytest -q          # ~2 min (all three algos)
 ```
 
+Or run the interactive walkthrough — **[`atari_speedrun.ipynb`](atari_speedrun.ipynb)** —
+which trains all three agents, plots the learning curves, and renders a speedrun
+(`pip install matplotlib jupyter` first). The committed copy has outputs, so it
+reads top-to-bottom without running anything.
+
 Actual training curve (`run_experiment.py`, seed 0):
 
 ```
