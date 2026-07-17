@@ -27,7 +27,7 @@ GenAI) on 1point3acres, Blind, Reddit, and MLE interview writeups.
 | [`dpo-loss`](dpo-loss/) | Direct Preference Optimization (RLHF without RL) |
 | [`grpo-ppo-loss`](grpo-ppo-loss/) | GRPO/PPO clipped loss, k3 KL estimator |
 | [`rl-post-training`](rl-post-training/) | v2: full SFT → GRPO/PPO pipeline on a real model with held-out eval |
-| [`atari-speedrun`](atari-speedrun/) | v3: DQN speedruns a mini-Atari game, judged by completion time |
+| [`atari-speedrun`](atari-speedrun/) | v3: DQN/PPO/GRPO speedrun a mini-Atari game, judged by completion time |
 | [`contrastive-retrieval`](contrastive-retrieval/) | Bi-encoder + InfoNCE, false-negative masking |
 
 ## Inference & decoding

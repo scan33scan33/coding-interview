@@ -56,6 +56,19 @@ class MiniBreakout:
         self.done = False
         return self._obs()
 
+    def snapshot(self):
+        """Capture full episode state. GRPO samples a GROUP of trajectories
+        from one identical starting state — snapshot/restore make that
+        replay exact (dynamics are deterministic given actions; the only
+        randomness is the launch at reset)."""
+        return (self.bx, self.by, self.vx, self.vy, self.px,
+                self.bricks_left, self.steps, self.done)
+
+    def restore(self, snap):
+        (self.bx, self.by, self.vx, self.vy, self.px,
+         self.bricks_left, self.steps, self.done) = snap
+        return self._obs()
+
     def _launch(self):
         """(Re)spawn the ball just above the paddle, heading up at an angle."""
         self.bx = int(self.rng.integers(0, W))
