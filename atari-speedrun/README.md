@@ -100,9 +100,11 @@ python -m pytest -q          # ~2 min (all three algos)
 ```
 
 Or run the interactive walkthrough — **[`atari_speedrun.ipynb`](atari_speedrun.ipynb)** —
-which trains all three agents, plots the learning curves, and renders a speedrun
-(`pip install matplotlib jupyter` first). The committed copy has outputs, so it
-reads top-to-bottom without running anything.
+which trains all three agents, plots the learning curves, and renders a speedrun.
+It is **fully self-contained** (every class/function is inlined, so it needs only
+`numpy`/`torch`/`matplotlib` — nothing to clone) and opens on Colab in one click
+via the badge at the top. The committed copy has outputs, so it also reads
+top-to-bottom without running anything.
 
 Actual training curve (`run_experiment.py`, seed 0):
 
